@@ -17,22 +17,24 @@ class ManoApp extends React.Component {
 class DrumMachine extends React.Component {
   constructor(props) {
     super(props);
+    
   };
+
+  drumSet1 = [
+    {
+      key: "Q",
+      id: "testSound",
+      message: "testSound played",
+      source: "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3"
+    },
+  ]
 
   render() {
     return(
       <div id="drum-machine">
         <p>Drum machine</p>
         <DrumDisplay />
-        <DrumButton id="Q" />
-        <DrumButton id="W" />
-        <DrumButton id="E" />
-        <DrumButton id="A" />
-        <DrumButton id="S" />
-        <DrumButton id="D" />
-        <DrumButton id="Z" />
-        <DrumButton id="X" />
-        <DrumButton id="C" />
+        <DrumButton set={this.drumSet1[0]} />
       </div>
     );
   };
@@ -58,16 +60,27 @@ class DrumButton extends React.Component {
 
   };
 
-  buttonPressed(buttonID){
+  buttonPressed(buttonID, audio){
     console.log("Batonas " + buttonID + " paspaustas");
+    console.log("Audio source:" + audio);
+
+    let audioClip = document.getElementById("audio-" + this.props.set.id); /*ID is set the same way in the <audio> element in render method*/
+    audioClip.play();
+    
   };
 
   render() {
     return(
       /*NOTE: when function is passed to onClick with parentheses, it must be passed to a function first
-      otherwise this onClick={this.buttonPressed(this.props.id)} will be executed immediately on first render
+      otherwise this onClick={this.buttonPressed(this.props.set.id)} will be executed immediately on first render
       when element is loaded*/
-      <button className="drum-pad" id={"key-" + this.props.id} onClick={() => this.buttonPressed(this.props.id)}>{this.props.id}</button>
+      <button className="drum-pad" id={this.props.set.id} onClick={() => this.buttonPressed(this.props.set.id, this.props.set.source)}>
+        {this.props.set.key}
+        <audio id={"audio-" + this.props.set.id}>
+          <source src={this.props.set.source} type="audio/mp3"></source>
+          Your browser does not support audio element.
+        </audio>
+      </button>
     );
   };
 };
