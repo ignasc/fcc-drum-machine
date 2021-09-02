@@ -1,9 +1,27 @@
+body {
+  text-align: center;
+}
+header{
+  font-size: 2em;
+}
 #drum-machine {
+  max-width: 500px;
   border: 1px solid red;
 }
 #display {
   background-color: lightblue;
 }
+#drum-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .drum-pad {
   background-color: lightslategray;
+}
+
+button {
+  margin: 5px;
+  width: 8rem;
+  height: 8rem;
 }
