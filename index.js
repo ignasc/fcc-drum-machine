@@ -135,7 +135,7 @@ class DrumDisplay extends React.Component {
 
   render() {
     return(
-      <div id="display">{this.props.message}</div>
+      <div id="display">Beat: {this.props.message}</div>
     );
   };
 };
